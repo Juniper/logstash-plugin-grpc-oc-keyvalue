@@ -46,8 +46,6 @@ gem build logstash-filter-awesome.gemspec
 ```sh
 bin/logstash-plugin install /your/local/plugin/logstash-filter-awesome.gem
 ```
-- Start Logstash and proceed to test the plugin
-
 - Running the plugin using a config file from the Logstash home
 ```sh
 bin/logstash -f <name of your config file>
