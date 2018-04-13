@@ -29,27 +29,27 @@ import java.io.Reader;
 
 public class MainThreadClass {
     public void invoke(String server,ArrayList<String> sensors,int port, Object queue)throws IOException,InterruptedException, ScriptException, FileNotFoundException{
-	System.out.println(server);
-	System.out.println(port);
-	System.out.println(sensors);
+	System.out.println("Server: " + server);
+	System.out.println("Port: " + port);
+	System.out.println("Sensors: " + sensors);
         ManagedChannel channel = ManagedChannelBuilder.forAddress(server,port)
                 .usePlaintext(true)
                 .build();
         OpenConfigTelemetryGrpc.OpenConfigTelemetryBlockingStub stub=OpenConfigTelemetryGrpc.newBlockingStub(channel);
-        listScriptingEngines();
+//      listScriptingEngines();
 //	System.setProperty("org.jruby.embed.localvariable.behavior", "transient");
 //	System.setProperty("org.jruby.embed.localcontext.scope", "singleton");	
 //	ScriptEngineManager manager = new ScriptEngineManager();
 //      ScriptEngine engine = manager.getEngineByName("jruby");
 //	Reader reader = new FileReader("/b/janishj/logstash/vendor/local_gems/940211cf/logstash-input-openconfig-0.1.0-java/lib/logstash/inputs/openconfig.rb");
 //      engine.eval(reader);
-        //String server = "teakwood";
-        //ArrayList<String> sensors = new ArrayList<>();
-        //sensors.add("/components/");
-        //sensors.add("/interfaces/");
-        System.out.println("Printing in main");
-	//System.out.println(queue);
-	System.out.println(sensors.size());
+//	String server = "teakwood";
+//	ArrayList<String> sensors = new ArrayList<>();
+//	sensors.add("/components/");
+//	sensors.add("/interfaces/");
+//      System.out.println("Printing in main");
+//	System.out.println(queue);
+//	System.out.println(sensors.size());
         Thread[] threads = new Thread[sensors.size()];//as many threads as there are sensors
         LinkedHashMap<String, LinkedHashMap<String, Object>> tr_record = new LinkedHashMap<String, LinkedHashMap<String, Object>>();
         for (int i = 0; i < sensors.size(); i++) {

@@ -46,8 +46,8 @@ class FindFile
             }
             else if (name.equalsIgnoreCase(fil.getName()))
             {
-                System.out.println(fil.getParentFile());
-		System.out.println(fil.getAbsolutePath());
+                //System.out.println(fil.getParentFile());
+		//System.out.println(fil.getAbsolutePath());
 		return fil.getAbsolutePath();
             }
         }
@@ -87,10 +87,10 @@ public class OpenConfigTelemetryGrpcClient implements Runnable {
         Iterator<Oc.OpenConfigData> response ;
 	try{
 	    ScriptEngine jruby = new ScriptEngineManager().getEngineByName("jruby");
-	    System.out.println("Hello there");
+	    //System.out.println("Hello there");
 	    //System.out.println(queue.getClass().getName());
  	    //System.out.println(System.getenv());
-	    System.out.println(System.getProperty("user.dir"));
+	    //System.out.println(System.getProperty("user.dir"));
 	    //URL url = getClass().getResource("/b/janishj/logstash/vendor/local_gems/940211cf/logstash-input-openconfig-0.1.0-java/lib/logstash/inputs/print.rb");
 	    //URL url = getClass().getResource("openconfig.rb");
 	    String name = "openconfig.rb";
@@ -102,12 +102,12 @@ public class OpenConfigTelemetryGrpcClient implements Runnable {
  	    }	    
 	    URL url = new File(oc_path).toURI().toURL();
 	    File f = new File(url.getPath());
-	    System.out.println(url);
+	    //System.out.println(url);
 	    jruby.eval(new BufferedReader(new FileReader(f)));
-	    System.out.println("Url eval done");
+	    //System.out.println("Url eval done");
 
             response=stub.telemetrySubscribe(request);
-	    System.out.println(response);
+	    //System.out.println(response);
             //INFO:stream of data packets
 	    int sequence = 0;
 	    while(response.hasNext()){
@@ -134,10 +134,10 @@ public class OpenConfigTelemetryGrpcClient implements Runnable {
 		//record.put("sensor_name", sensor);
 		//record.put("_sequence", sequence);
 		//sequence=sequence+1;
-		System.out.println(record);
+		//System.out.println(record);
                 transform_record(record,device,sequence,sensor);
                 sequence = sequence + 1;
-		System.out.println("data sent to ruby $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+		//System.out.println("data sent to ruby $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
 		//System.out.println(tr_record);
 		
                 //try
@@ -154,7 +154,7 @@ public class OpenConfigTelemetryGrpcClient implements Runnable {
                 //}catch (FileNotFoundException | ScriptException e){}
             }
         }catch(MalformedURLException | StatusRuntimeException | FileNotFoundException | ScriptException e ){
-		System.out.println("Inside Catch");
+		System.out.println("Exception raised: ");
 		System.out.println(e);
 	}
     }
