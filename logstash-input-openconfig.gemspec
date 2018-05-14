@@ -17,10 +17,13 @@ Gem::Specification.new do |s|
   s.files += `git ls-files`.lines.map(&:chomp)
 
   s.add_runtime_dependency 'jar-dependencies',"~> #{version}"
-  s.requirements << "jar io.grpc:grpc-netty, 1.6.1"
-  s.requirements << "jar io.grpc:grpc-protobuf, 1.6.1"
-  s.requirements << "jar io.grpc:grpc-stub, 1.6.1"
+  s.requirements << "jar io.grpc:grpc-netty, 1.11.0"
+  s.requirements << "jar io.grpc:grpc-protobuf, 1.11.0"
+  s.requirements << "jar io.grpc:grpc-stub, 1.11.0"
+  s.requirements << "jar io.netty:netty-handler, 4.1.17.Final"
+  s.requirements << "jar io.netty:netty-tcnative-boringssl-static, 2.0.7.Final"
   s.requirements << "jar org.jruby:jruby-complete, 9.1.13.0"
+
   # Special flag to let us know this is actually a logstash plugin
   s.metadata = { "logstash_plugin" => "true", "logstash_group" => "input" }
 

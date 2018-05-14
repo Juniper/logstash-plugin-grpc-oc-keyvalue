@@ -28,6 +28,8 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.net.MalformedURLException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 class FindFile 
 {
@@ -64,7 +66,7 @@ public class OpenConfigTelemetryGrpcClient implements Runnable {
     String sensor;
     Object queue;
     OpenConfigTelemetryGrpc.OpenConfigTelemetryBlockingStub stub;
-    public OpenConfigTelemetryGrpcClient(String sensor,LinkedHashMap<String,LinkedHashMap<String,Object>> tr_record,ManagedChannel channel,OpenConfigTelemetryGrpc.OpenConfigTelemetryBlockingStub stub,String device, Object queue)
+    public OpenConfigTelemetryGrpcClient(String sensor,LinkedHashMap<String,LinkedHashMap<String,Object>> tr_record,ManagedChannel channel,OpenConfigTelemetryGrpc.OpenConfigTelemetryBlockingStub stub,String device, Object queue, String measurement_name)
     {
         this.channel=channel;
         this.tr_record=tr_record;
@@ -102,12 +104,11 @@ public class OpenConfigTelemetryGrpcClient implements Runnable {
  	    }	    
 	    URL url = new File(oc_path).toURI().toURL();
 	    File f = new File(url.getPath());
-	    //System.out.println(url);
+	    System.out.println(url);
 	    jruby.eval(new BufferedReader(new FileReader(f)));
-	    //System.out.println("Url eval done");
-
+	    System.out.println("Url eval done");
             response=stub.telemetrySubscribe(request);
-	    //System.out.println(response);
+	    System.out.println(response);
             //INFO:stream of data packets
 	    int sequence = 0;
 	    while(response.hasNext()){
@@ -131,19 +132,21 @@ public class OpenConfigTelemetryGrpcClient implements Runnable {
                     //else if (key.startsWith("__")){}
 		    record.put(prefix+key, value);
                 }
+		//System.out.println("Before transform_record");
 		//record.put("sensor_name", sensor);
 		//record.put("_sequence", sequence);
 		//sequence=sequence+1;
 		//System.out.println(record);
                 transform_record(record,device,sequence,sensor);
                 sequence = sequence + 1;
-		//System.out.println("data sent to ruby $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+		System.out.println("data sent to ruby $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
 		//System.out.println(tr_record);
 		
                 //try
                 //{
 		Iterator it = tr_record.entrySet().iterator();
 		while(it.hasNext()){
+			//System.out.println("Inside while loop it.hasNext()");
 			Map.Entry pair = (Map.Entry)it.next();
                 //	jruby.put("hash",tr_record);
 			jruby.put("hash", pair.getValue());
@@ -153,8 +156,9 @@ public class OpenConfigTelemetryGrpcClient implements Runnable {
 
                 //}catch (FileNotFoundException | ScriptException e){}
             }
-        }catch(MalformedURLException | StatusRuntimeException | FileNotFoundException | ScriptException e ){
-		System.out.println("Exception raised: ");
+       // }catch(MalformedURLException | StatusRuntimeException | FileNotFoundException | ScriptException e ){
+	 }catch(Exception e ){
+		System.out.println("Exception raised in OPenCOnfig: ");
 		System.out.println(e);
 	}
     }
@@ -169,6 +173,16 @@ public class OpenConfigTelemetryGrpcClient implements Runnable {
             pattern = Pattern.compile("\\s*\\[[^\\]]*\\]\\s*");
             matcher = pattern.matcher(master_key);
             ArrayList<String> splits=new ArrayList<>();
+	    ArrayList<String> plugin_record_tags = new ArrayList<String>();
+	    plugin_record_tags.add(device);
+	    String host = "";
+	    try {
+         	   InetAddress myHost = InetAddress.getLocalHost();
+            	   host = myHost.getHostName();
+       	    } catch (UnknownHostException ex) {
+        	    ex.printStackTrace();
+            }
+	    plugin_record_tags.add(host);
             while(matcher.find()){
                 splits.add(matcher.group(0));}
             String new_key=master_key;
@@ -188,14 +202,17 @@ public class OpenConfigTelemetryGrpcClient implements Runnable {
                 }
                 //write down condition to check if the key already exists
                 sub_key = split_key[0] + "/@" + sub_key;
+		plugin_record_tags.add(sub_key);
                 h.put(sub_key,sub_value);
             }
             h.put(new_key,value);
             h.put("device",device);
 	    h.put("sensor_name", sensor);
-	    //h.put("_sequence", sequence);
+	    h.put("_seq", sequence);
+	    String plugin_record_tags_str = String.join(",", plugin_record_tags);
+	    h.put("plugin_record_tags", plugin_record_tags_str);
             tr_record.put(sp_key,h);
-            //System.out.println(sp_key+"=>"+tr_record.get(sp_key));
+	//System.out.println(sp_key+"=>"+tr_record.get(sp_key));
         }
     }
     public static Object getDataListValue(int number,ArrayList<Oc.KeyValue> data_list,int index)

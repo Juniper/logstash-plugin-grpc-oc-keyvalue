@@ -1,19 +1,19 @@
 package telemetry;
 
-import static io.grpc.stub.ClientCalls.asyncUnaryCall;
-import static io.grpc.stub.ClientCalls.asyncServerStreamingCall;
-import static io.grpc.stub.ClientCalls.asyncClientStreamingCall;
-import static io.grpc.stub.ClientCalls.asyncBidiStreamingCall;
-import static io.grpc.stub.ClientCalls.blockingUnaryCall;
-import static io.grpc.stub.ClientCalls.blockingServerStreamingCall;
-import static io.grpc.stub.ClientCalls.futureUnaryCall;
 import static io.grpc.MethodDescriptor.generateFullMethodName;
-import static io.grpc.stub.ServerCalls.asyncUnaryCall;
-import static io.grpc.stub.ServerCalls.asyncServerStreamingCall;
-import static io.grpc.stub.ServerCalls.asyncClientStreamingCall;
+import static io.grpc.stub.ClientCalls.asyncBidiStreamingCall;
+import static io.grpc.stub.ClientCalls.asyncClientStreamingCall;
+import static io.grpc.stub.ClientCalls.asyncServerStreamingCall;
+import static io.grpc.stub.ClientCalls.asyncUnaryCall;
+import static io.grpc.stub.ClientCalls.blockingServerStreamingCall;
+import static io.grpc.stub.ClientCalls.blockingUnaryCall;
+import static io.grpc.stub.ClientCalls.futureUnaryCall;
 import static io.grpc.stub.ServerCalls.asyncBidiStreamingCall;
-import static io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall;
+import static io.grpc.stub.ServerCalls.asyncClientStreamingCall;
+import static io.grpc.stub.ServerCalls.asyncServerStreamingCall;
+import static io.grpc.stub.ServerCalls.asyncUnaryCall;
 import static io.grpc.stub.ServerCalls.asyncUnimplementedStreamingCall;
+import static io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall;
 
 /**
  * <pre>
@@ -21,7 +21,7 @@ import static io.grpc.stub.ServerCalls.asyncUnimplementedStreamingCall;
  * </pre>
  */
 @javax.annotation.Generated(
-    value = "by gRPC proto compiler (version 1.6.1)",
+    value = "by gRPC proto compiler (version 1.11.0)",
     comments = "Source: oc.proto")
 public final class OpenConfigTelemetryGrpc {
 
@@ -31,65 +31,190 @@ public final class OpenConfigTelemetryGrpc {
 
   // Static method descriptors that strictly reflect the proto.
   @io.grpc.ExperimentalApi("https://github.com/grpc/grpc-java/issues/1901")
+  @java.lang.Deprecated // Use {@link #getTelemetrySubscribeMethod()} instead. 
   public static final io.grpc.MethodDescriptor<telemetry.Oc.SubscriptionRequest,
-      telemetry.Oc.OpenConfigData> METHOD_TELEMETRY_SUBSCRIBE =
-      io.grpc.MethodDescriptor.<telemetry.Oc.SubscriptionRequest, telemetry.Oc.OpenConfigData>newBuilder()
-          .setType(io.grpc.MethodDescriptor.MethodType.SERVER_STREAMING)
-          .setFullMethodName(generateFullMethodName(
-              "telemetry.OpenConfigTelemetry", "telemetrySubscribe"))
-          .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-              telemetry.Oc.SubscriptionRequest.getDefaultInstance()))
-          .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-              telemetry.Oc.OpenConfigData.getDefaultInstance()))
-          .build();
+      telemetry.Oc.OpenConfigData> METHOD_TELEMETRY_SUBSCRIBE = getTelemetrySubscribeMethodHelper();
+
+  private static volatile io.grpc.MethodDescriptor<telemetry.Oc.SubscriptionRequest,
+      telemetry.Oc.OpenConfigData> getTelemetrySubscribeMethod;
+
   @io.grpc.ExperimentalApi("https://github.com/grpc/grpc-java/issues/1901")
+  public static io.grpc.MethodDescriptor<telemetry.Oc.SubscriptionRequest,
+      telemetry.Oc.OpenConfigData> getTelemetrySubscribeMethod() {
+    return getTelemetrySubscribeMethodHelper();
+  }
+
+  private static io.grpc.MethodDescriptor<telemetry.Oc.SubscriptionRequest,
+      telemetry.Oc.OpenConfigData> getTelemetrySubscribeMethodHelper() {
+    io.grpc.MethodDescriptor<telemetry.Oc.SubscriptionRequest, telemetry.Oc.OpenConfigData> getTelemetrySubscribeMethod;
+    if ((getTelemetrySubscribeMethod = OpenConfigTelemetryGrpc.getTelemetrySubscribeMethod) == null) {
+      synchronized (OpenConfigTelemetryGrpc.class) {
+        if ((getTelemetrySubscribeMethod = OpenConfigTelemetryGrpc.getTelemetrySubscribeMethod) == null) {
+          OpenConfigTelemetryGrpc.getTelemetrySubscribeMethod = getTelemetrySubscribeMethod = 
+              io.grpc.MethodDescriptor.<telemetry.Oc.SubscriptionRequest, telemetry.Oc.OpenConfigData>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.SERVER_STREAMING)
+              .setFullMethodName(generateFullMethodName(
+                  "telemetry.OpenConfigTelemetry", "telemetrySubscribe"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  telemetry.Oc.SubscriptionRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  telemetry.Oc.OpenConfigData.getDefaultInstance()))
+                  .setSchemaDescriptor(new OpenConfigTelemetryMethodDescriptorSupplier("telemetrySubscribe"))
+                  .build();
+          }
+        }
+     }
+     return getTelemetrySubscribeMethod;
+  }
+  @io.grpc.ExperimentalApi("https://github.com/grpc/grpc-java/issues/1901")
+  @java.lang.Deprecated // Use {@link #getCancelTelemetrySubscriptionMethod()} instead. 
   public static final io.grpc.MethodDescriptor<telemetry.Oc.CancelSubscriptionRequest,
-      telemetry.Oc.CancelSubscriptionReply> METHOD_CANCEL_TELEMETRY_SUBSCRIPTION =
-      io.grpc.MethodDescriptor.<telemetry.Oc.CancelSubscriptionRequest, telemetry.Oc.CancelSubscriptionReply>newBuilder()
-          .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
-          .setFullMethodName(generateFullMethodName(
-              "telemetry.OpenConfigTelemetry", "cancelTelemetrySubscription"))
-          .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-              telemetry.Oc.CancelSubscriptionRequest.getDefaultInstance()))
-          .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-              telemetry.Oc.CancelSubscriptionReply.getDefaultInstance()))
-          .build();
+      telemetry.Oc.CancelSubscriptionReply> METHOD_CANCEL_TELEMETRY_SUBSCRIPTION = getCancelTelemetrySubscriptionMethodHelper();
+
+  private static volatile io.grpc.MethodDescriptor<telemetry.Oc.CancelSubscriptionRequest,
+      telemetry.Oc.CancelSubscriptionReply> getCancelTelemetrySubscriptionMethod;
+
   @io.grpc.ExperimentalApi("https://github.com/grpc/grpc-java/issues/1901")
+  public static io.grpc.MethodDescriptor<telemetry.Oc.CancelSubscriptionRequest,
+      telemetry.Oc.CancelSubscriptionReply> getCancelTelemetrySubscriptionMethod() {
+    return getCancelTelemetrySubscriptionMethodHelper();
+  }
+
+  private static io.grpc.MethodDescriptor<telemetry.Oc.CancelSubscriptionRequest,
+      telemetry.Oc.CancelSubscriptionReply> getCancelTelemetrySubscriptionMethodHelper() {
+    io.grpc.MethodDescriptor<telemetry.Oc.CancelSubscriptionRequest, telemetry.Oc.CancelSubscriptionReply> getCancelTelemetrySubscriptionMethod;
+    if ((getCancelTelemetrySubscriptionMethod = OpenConfigTelemetryGrpc.getCancelTelemetrySubscriptionMethod) == null) {
+      synchronized (OpenConfigTelemetryGrpc.class) {
+        if ((getCancelTelemetrySubscriptionMethod = OpenConfigTelemetryGrpc.getCancelTelemetrySubscriptionMethod) == null) {
+          OpenConfigTelemetryGrpc.getCancelTelemetrySubscriptionMethod = getCancelTelemetrySubscriptionMethod = 
+              io.grpc.MethodDescriptor.<telemetry.Oc.CancelSubscriptionRequest, telemetry.Oc.CancelSubscriptionReply>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(
+                  "telemetry.OpenConfigTelemetry", "cancelTelemetrySubscription"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  telemetry.Oc.CancelSubscriptionRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  telemetry.Oc.CancelSubscriptionReply.getDefaultInstance()))
+                  .setSchemaDescriptor(new OpenConfigTelemetryMethodDescriptorSupplier("cancelTelemetrySubscription"))
+                  .build();
+          }
+        }
+     }
+     return getCancelTelemetrySubscriptionMethod;
+  }
+  @io.grpc.ExperimentalApi("https://github.com/grpc/grpc-java/issues/1901")
+  @java.lang.Deprecated // Use {@link #getGetTelemetrySubscriptionsMethod()} instead. 
   public static final io.grpc.MethodDescriptor<telemetry.Oc.GetSubscriptionsRequest,
-      telemetry.Oc.GetSubscriptionsReply> METHOD_GET_TELEMETRY_SUBSCRIPTIONS =
-      io.grpc.MethodDescriptor.<telemetry.Oc.GetSubscriptionsRequest, telemetry.Oc.GetSubscriptionsReply>newBuilder()
-          .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
-          .setFullMethodName(generateFullMethodName(
-              "telemetry.OpenConfigTelemetry", "getTelemetrySubscriptions"))
-          .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-              telemetry.Oc.GetSubscriptionsRequest.getDefaultInstance()))
-          .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-              telemetry.Oc.GetSubscriptionsReply.getDefaultInstance()))
-          .build();
+      telemetry.Oc.GetSubscriptionsReply> METHOD_GET_TELEMETRY_SUBSCRIPTIONS = getGetTelemetrySubscriptionsMethodHelper();
+
+  private static volatile io.grpc.MethodDescriptor<telemetry.Oc.GetSubscriptionsRequest,
+      telemetry.Oc.GetSubscriptionsReply> getGetTelemetrySubscriptionsMethod;
+
   @io.grpc.ExperimentalApi("https://github.com/grpc/grpc-java/issues/1901")
+  public static io.grpc.MethodDescriptor<telemetry.Oc.GetSubscriptionsRequest,
+      telemetry.Oc.GetSubscriptionsReply> getGetTelemetrySubscriptionsMethod() {
+    return getGetTelemetrySubscriptionsMethodHelper();
+  }
+
+  private static io.grpc.MethodDescriptor<telemetry.Oc.GetSubscriptionsRequest,
+      telemetry.Oc.GetSubscriptionsReply> getGetTelemetrySubscriptionsMethodHelper() {
+    io.grpc.MethodDescriptor<telemetry.Oc.GetSubscriptionsRequest, telemetry.Oc.GetSubscriptionsReply> getGetTelemetrySubscriptionsMethod;
+    if ((getGetTelemetrySubscriptionsMethod = OpenConfigTelemetryGrpc.getGetTelemetrySubscriptionsMethod) == null) {
+      synchronized (OpenConfigTelemetryGrpc.class) {
+        if ((getGetTelemetrySubscriptionsMethod = OpenConfigTelemetryGrpc.getGetTelemetrySubscriptionsMethod) == null) {
+          OpenConfigTelemetryGrpc.getGetTelemetrySubscriptionsMethod = getGetTelemetrySubscriptionsMethod = 
+              io.grpc.MethodDescriptor.<telemetry.Oc.GetSubscriptionsRequest, telemetry.Oc.GetSubscriptionsReply>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(
+                  "telemetry.OpenConfigTelemetry", "getTelemetrySubscriptions"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  telemetry.Oc.GetSubscriptionsRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  telemetry.Oc.GetSubscriptionsReply.getDefaultInstance()))
+                  .setSchemaDescriptor(new OpenConfigTelemetryMethodDescriptorSupplier("getTelemetrySubscriptions"))
+                  .build();
+          }
+        }
+     }
+     return getGetTelemetrySubscriptionsMethod;
+  }
+  @io.grpc.ExperimentalApi("https://github.com/grpc/grpc-java/issues/1901")
+  @java.lang.Deprecated // Use {@link #getGetTelemetryOperationalStateMethod()} instead. 
   public static final io.grpc.MethodDescriptor<telemetry.Oc.GetOperationalStateRequest,
-      telemetry.Oc.GetOperationalStateReply> METHOD_GET_TELEMETRY_OPERATIONAL_STATE =
-      io.grpc.MethodDescriptor.<telemetry.Oc.GetOperationalStateRequest, telemetry.Oc.GetOperationalStateReply>newBuilder()
-          .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
-          .setFullMethodName(generateFullMethodName(
-              "telemetry.OpenConfigTelemetry", "getTelemetryOperationalState"))
-          .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-              telemetry.Oc.GetOperationalStateRequest.getDefaultInstance()))
-          .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-              telemetry.Oc.GetOperationalStateReply.getDefaultInstance()))
-          .build();
+      telemetry.Oc.GetOperationalStateReply> METHOD_GET_TELEMETRY_OPERATIONAL_STATE = getGetTelemetryOperationalStateMethodHelper();
+
+  private static volatile io.grpc.MethodDescriptor<telemetry.Oc.GetOperationalStateRequest,
+      telemetry.Oc.GetOperationalStateReply> getGetTelemetryOperationalStateMethod;
+
   @io.grpc.ExperimentalApi("https://github.com/grpc/grpc-java/issues/1901")
+  public static io.grpc.MethodDescriptor<telemetry.Oc.GetOperationalStateRequest,
+      telemetry.Oc.GetOperationalStateReply> getGetTelemetryOperationalStateMethod() {
+    return getGetTelemetryOperationalStateMethodHelper();
+  }
+
+  private static io.grpc.MethodDescriptor<telemetry.Oc.GetOperationalStateRequest,
+      telemetry.Oc.GetOperationalStateReply> getGetTelemetryOperationalStateMethodHelper() {
+    io.grpc.MethodDescriptor<telemetry.Oc.GetOperationalStateRequest, telemetry.Oc.GetOperationalStateReply> getGetTelemetryOperationalStateMethod;
+    if ((getGetTelemetryOperationalStateMethod = OpenConfigTelemetryGrpc.getGetTelemetryOperationalStateMethod) == null) {
+      synchronized (OpenConfigTelemetryGrpc.class) {
+        if ((getGetTelemetryOperationalStateMethod = OpenConfigTelemetryGrpc.getGetTelemetryOperationalStateMethod) == null) {
+          OpenConfigTelemetryGrpc.getGetTelemetryOperationalStateMethod = getGetTelemetryOperationalStateMethod = 
+              io.grpc.MethodDescriptor.<telemetry.Oc.GetOperationalStateRequest, telemetry.Oc.GetOperationalStateReply>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(
+                  "telemetry.OpenConfigTelemetry", "getTelemetryOperationalState"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  telemetry.Oc.GetOperationalStateRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  telemetry.Oc.GetOperationalStateReply.getDefaultInstance()))
+                  .setSchemaDescriptor(new OpenConfigTelemetryMethodDescriptorSupplier("getTelemetryOperationalState"))
+                  .build();
+          }
+        }
+     }
+     return getGetTelemetryOperationalStateMethod;
+  }
+  @io.grpc.ExperimentalApi("https://github.com/grpc/grpc-java/issues/1901")
+  @java.lang.Deprecated // Use {@link #getGetDataEncodingsMethod()} instead. 
   public static final io.grpc.MethodDescriptor<telemetry.Oc.DataEncodingRequest,
-      telemetry.Oc.DataEncodingReply> METHOD_GET_DATA_ENCODINGS =
-      io.grpc.MethodDescriptor.<telemetry.Oc.DataEncodingRequest, telemetry.Oc.DataEncodingReply>newBuilder()
-          .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
-          .setFullMethodName(generateFullMethodName(
-              "telemetry.OpenConfigTelemetry", "getDataEncodings"))
-          .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-              telemetry.Oc.DataEncodingRequest.getDefaultInstance()))
-          .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-              telemetry.Oc.DataEncodingReply.getDefaultInstance()))
-          .build();
+      telemetry.Oc.DataEncodingReply> METHOD_GET_DATA_ENCODINGS = getGetDataEncodingsMethodHelper();
+
+  private static volatile io.grpc.MethodDescriptor<telemetry.Oc.DataEncodingRequest,
+      telemetry.Oc.DataEncodingReply> getGetDataEncodingsMethod;
+
+  @io.grpc.ExperimentalApi("https://github.com/grpc/grpc-java/issues/1901")
+  public static io.grpc.MethodDescriptor<telemetry.Oc.DataEncodingRequest,
+      telemetry.Oc.DataEncodingReply> getGetDataEncodingsMethod() {
+    return getGetDataEncodingsMethodHelper();
+  }
+
+  private static io.grpc.MethodDescriptor<telemetry.Oc.DataEncodingRequest,
+      telemetry.Oc.DataEncodingReply> getGetDataEncodingsMethodHelper() {
+    io.grpc.MethodDescriptor<telemetry.Oc.DataEncodingRequest, telemetry.Oc.DataEncodingReply> getGetDataEncodingsMethod;
+    if ((getGetDataEncodingsMethod = OpenConfigTelemetryGrpc.getGetDataEncodingsMethod) == null) {
+      synchronized (OpenConfigTelemetryGrpc.class) {
+        if ((getGetDataEncodingsMethod = OpenConfigTelemetryGrpc.getGetDataEncodingsMethod) == null) {
+          OpenConfigTelemetryGrpc.getGetDataEncodingsMethod = getGetDataEncodingsMethod = 
+              io.grpc.MethodDescriptor.<telemetry.Oc.DataEncodingRequest, telemetry.Oc.DataEncodingReply>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(
+                  "telemetry.OpenConfigTelemetry", "getDataEncodings"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  telemetry.Oc.DataEncodingRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  telemetry.Oc.DataEncodingReply.getDefaultInstance()))
+                  .setSchemaDescriptor(new OpenConfigTelemetryMethodDescriptorSupplier("getDataEncodings"))
+                  .build();
+          }
+        }
+     }
+     return getGetDataEncodingsMethod;
+  }
 
   /**
    * Creates a new async stub that supports all call types for the service
@@ -130,7 +255,7 @@ public final class OpenConfigTelemetryGrpc {
      */
     public void telemetrySubscribe(telemetry.Oc.SubscriptionRequest request,
         io.grpc.stub.StreamObserver<telemetry.Oc.OpenConfigData> responseObserver) {
-      asyncUnimplementedUnaryCall(METHOD_TELEMETRY_SUBSCRIBE, responseObserver);
+      asyncUnimplementedUnaryCall(getTelemetrySubscribeMethodHelper(), responseObserver);
     }
 
     /**
@@ -140,7 +265,7 @@ public final class OpenConfigTelemetryGrpc {
      */
     public void cancelTelemetrySubscription(telemetry.Oc.CancelSubscriptionRequest request,
         io.grpc.stub.StreamObserver<telemetry.Oc.CancelSubscriptionReply> responseObserver) {
-      asyncUnimplementedUnaryCall(METHOD_CANCEL_TELEMETRY_SUBSCRIPTION, responseObserver);
+      asyncUnimplementedUnaryCall(getCancelTelemetrySubscriptionMethodHelper(), responseObserver);
     }
 
     /**
@@ -152,7 +277,7 @@ public final class OpenConfigTelemetryGrpc {
      */
     public void getTelemetrySubscriptions(telemetry.Oc.GetSubscriptionsRequest request,
         io.grpc.stub.StreamObserver<telemetry.Oc.GetSubscriptionsReply> responseObserver) {
-      asyncUnimplementedUnaryCall(METHOD_GET_TELEMETRY_SUBSCRIPTIONS, responseObserver);
+      asyncUnimplementedUnaryCall(getGetTelemetrySubscriptionsMethodHelper(), responseObserver);
     }
 
     /**
@@ -162,7 +287,7 @@ public final class OpenConfigTelemetryGrpc {
      */
     public void getTelemetryOperationalState(telemetry.Oc.GetOperationalStateRequest request,
         io.grpc.stub.StreamObserver<telemetry.Oc.GetOperationalStateReply> responseObserver) {
-      asyncUnimplementedUnaryCall(METHOD_GET_TELEMETRY_OPERATIONAL_STATE, responseObserver);
+      asyncUnimplementedUnaryCall(getGetTelemetryOperationalStateMethodHelper(), responseObserver);
     }
 
     /**
@@ -173,41 +298,41 @@ public final class OpenConfigTelemetryGrpc {
      */
     public void getDataEncodings(telemetry.Oc.DataEncodingRequest request,
         io.grpc.stub.StreamObserver<telemetry.Oc.DataEncodingReply> responseObserver) {
-      asyncUnimplementedUnaryCall(METHOD_GET_DATA_ENCODINGS, responseObserver);
+      asyncUnimplementedUnaryCall(getGetDataEncodingsMethodHelper(), responseObserver);
     }
 
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
-            METHOD_TELEMETRY_SUBSCRIBE,
+            getTelemetrySubscribeMethodHelper(),
             asyncServerStreamingCall(
               new MethodHandlers<
                 telemetry.Oc.SubscriptionRequest,
                 telemetry.Oc.OpenConfigData>(
                   this, METHODID_TELEMETRY_SUBSCRIBE)))
           .addMethod(
-            METHOD_CANCEL_TELEMETRY_SUBSCRIPTION,
+            getCancelTelemetrySubscriptionMethodHelper(),
             asyncUnaryCall(
               new MethodHandlers<
                 telemetry.Oc.CancelSubscriptionRequest,
                 telemetry.Oc.CancelSubscriptionReply>(
                   this, METHODID_CANCEL_TELEMETRY_SUBSCRIPTION)))
           .addMethod(
-            METHOD_GET_TELEMETRY_SUBSCRIPTIONS,
+            getGetTelemetrySubscriptionsMethodHelper(),
             asyncUnaryCall(
               new MethodHandlers<
                 telemetry.Oc.GetSubscriptionsRequest,
                 telemetry.Oc.GetSubscriptionsReply>(
                   this, METHODID_GET_TELEMETRY_SUBSCRIPTIONS)))
           .addMethod(
-            METHOD_GET_TELEMETRY_OPERATIONAL_STATE,
+            getGetTelemetryOperationalStateMethodHelper(),
             asyncUnaryCall(
               new MethodHandlers<
                 telemetry.Oc.GetOperationalStateRequest,
                 telemetry.Oc.GetOperationalStateReply>(
                   this, METHODID_GET_TELEMETRY_OPERATIONAL_STATE)))
           .addMethod(
-            METHOD_GET_DATA_ENCODINGS,
+            getGetDataEncodingsMethodHelper(),
             asyncUnaryCall(
               new MethodHandlers<
                 telemetry.Oc.DataEncodingRequest,
@@ -248,7 +373,7 @@ public final class OpenConfigTelemetryGrpc {
     public void telemetrySubscribe(telemetry.Oc.SubscriptionRequest request,
         io.grpc.stub.StreamObserver<telemetry.Oc.OpenConfigData> responseObserver) {
       asyncServerStreamingCall(
-          getChannel().newCall(METHOD_TELEMETRY_SUBSCRIBE, getCallOptions()), request, responseObserver);
+          getChannel().newCall(getTelemetrySubscribeMethodHelper(), getCallOptions()), request, responseObserver);
     }
 
     /**
@@ -259,7 +384,7 @@ public final class OpenConfigTelemetryGrpc {
     public void cancelTelemetrySubscription(telemetry.Oc.CancelSubscriptionRequest request,
         io.grpc.stub.StreamObserver<telemetry.Oc.CancelSubscriptionReply> responseObserver) {
       asyncUnaryCall(
-          getChannel().newCall(METHOD_CANCEL_TELEMETRY_SUBSCRIPTION, getCallOptions()), request, responseObserver);
+          getChannel().newCall(getCancelTelemetrySubscriptionMethodHelper(), getCallOptions()), request, responseObserver);
     }
 
     /**
@@ -272,7 +397,7 @@ public final class OpenConfigTelemetryGrpc {
     public void getTelemetrySubscriptions(telemetry.Oc.GetSubscriptionsRequest request,
         io.grpc.stub.StreamObserver<telemetry.Oc.GetSubscriptionsReply> responseObserver) {
       asyncUnaryCall(
-          getChannel().newCall(METHOD_GET_TELEMETRY_SUBSCRIPTIONS, getCallOptions()), request, responseObserver);
+          getChannel().newCall(getGetTelemetrySubscriptionsMethodHelper(), getCallOptions()), request, responseObserver);
     }
 
     /**
@@ -283,7 +408,7 @@ public final class OpenConfigTelemetryGrpc {
     public void getTelemetryOperationalState(telemetry.Oc.GetOperationalStateRequest request,
         io.grpc.stub.StreamObserver<telemetry.Oc.GetOperationalStateReply> responseObserver) {
       asyncUnaryCall(
-          getChannel().newCall(METHOD_GET_TELEMETRY_OPERATIONAL_STATE, getCallOptions()), request, responseObserver);
+          getChannel().newCall(getGetTelemetryOperationalStateMethodHelper(), getCallOptions()), request, responseObserver);
     }
 
     /**
@@ -295,7 +420,7 @@ public final class OpenConfigTelemetryGrpc {
     public void getDataEncodings(telemetry.Oc.DataEncodingRequest request,
         io.grpc.stub.StreamObserver<telemetry.Oc.DataEncodingReply> responseObserver) {
       asyncUnaryCall(
-          getChannel().newCall(METHOD_GET_DATA_ENCODINGS, getCallOptions()), request, responseObserver);
+          getChannel().newCall(getGetDataEncodingsMethodHelper(), getCallOptions()), request, responseObserver);
     }
   }
 
@@ -330,7 +455,7 @@ public final class OpenConfigTelemetryGrpc {
     public java.util.Iterator<telemetry.Oc.OpenConfigData> telemetrySubscribe(
         telemetry.Oc.SubscriptionRequest request) {
       return blockingServerStreamingCall(
-          getChannel(), METHOD_TELEMETRY_SUBSCRIBE, getCallOptions(), request);
+          getChannel(), getTelemetrySubscribeMethodHelper(), getCallOptions(), request);
     }
 
     /**
@@ -340,7 +465,7 @@ public final class OpenConfigTelemetryGrpc {
      */
     public telemetry.Oc.CancelSubscriptionReply cancelTelemetrySubscription(telemetry.Oc.CancelSubscriptionRequest request) {
       return blockingUnaryCall(
-          getChannel(), METHOD_CANCEL_TELEMETRY_SUBSCRIPTION, getCallOptions(), request);
+          getChannel(), getCancelTelemetrySubscriptionMethodHelper(), getCallOptions(), request);
     }
 
     /**
@@ -352,7 +477,7 @@ public final class OpenConfigTelemetryGrpc {
      */
     public telemetry.Oc.GetSubscriptionsReply getTelemetrySubscriptions(telemetry.Oc.GetSubscriptionsRequest request) {
       return blockingUnaryCall(
-          getChannel(), METHOD_GET_TELEMETRY_SUBSCRIPTIONS, getCallOptions(), request);
+          getChannel(), getGetTelemetrySubscriptionsMethodHelper(), getCallOptions(), request);
     }
 
     /**
@@ -362,7 +487,7 @@ public final class OpenConfigTelemetryGrpc {
      */
     public telemetry.Oc.GetOperationalStateReply getTelemetryOperationalState(telemetry.Oc.GetOperationalStateRequest request) {
       return blockingUnaryCall(
-          getChannel(), METHOD_GET_TELEMETRY_OPERATIONAL_STATE, getCallOptions(), request);
+          getChannel(), getGetTelemetryOperationalStateMethodHelper(), getCallOptions(), request);
     }
 
     /**
@@ -373,7 +498,7 @@ public final class OpenConfigTelemetryGrpc {
      */
     public telemetry.Oc.DataEncodingReply getDataEncodings(telemetry.Oc.DataEncodingRequest request) {
       return blockingUnaryCall(
-          getChannel(), METHOD_GET_DATA_ENCODINGS, getCallOptions(), request);
+          getChannel(), getGetDataEncodingsMethodHelper(), getCallOptions(), request);
     }
   }
 
@@ -406,7 +531,7 @@ public final class OpenConfigTelemetryGrpc {
     public com.google.common.util.concurrent.ListenableFuture<telemetry.Oc.CancelSubscriptionReply> cancelTelemetrySubscription(
         telemetry.Oc.CancelSubscriptionRequest request) {
       return futureUnaryCall(
-          getChannel().newCall(METHOD_CANCEL_TELEMETRY_SUBSCRIPTION, getCallOptions()), request);
+          getChannel().newCall(getCancelTelemetrySubscriptionMethodHelper(), getCallOptions()), request);
     }
 
     /**
@@ -419,7 +544,7 @@ public final class OpenConfigTelemetryGrpc {
     public com.google.common.util.concurrent.ListenableFuture<telemetry.Oc.GetSubscriptionsReply> getTelemetrySubscriptions(
         telemetry.Oc.GetSubscriptionsRequest request) {
       return futureUnaryCall(
-          getChannel().newCall(METHOD_GET_TELEMETRY_SUBSCRIPTIONS, getCallOptions()), request);
+          getChannel().newCall(getGetTelemetrySubscriptionsMethodHelper(), getCallOptions()), request);
     }
 
     /**
@@ -430,7 +555,7 @@ public final class OpenConfigTelemetryGrpc {
     public com.google.common.util.concurrent.ListenableFuture<telemetry.Oc.GetOperationalStateReply> getTelemetryOperationalState(
         telemetry.Oc.GetOperationalStateRequest request) {
       return futureUnaryCall(
-          getChannel().newCall(METHOD_GET_TELEMETRY_OPERATIONAL_STATE, getCallOptions()), request);
+          getChannel().newCall(getGetTelemetryOperationalStateMethodHelper(), getCallOptions()), request);
     }
 
     /**
@@ -442,7 +567,7 @@ public final class OpenConfigTelemetryGrpc {
     public com.google.common.util.concurrent.ListenableFuture<telemetry.Oc.DataEncodingReply> getDataEncodings(
         telemetry.Oc.DataEncodingRequest request) {
       return futureUnaryCall(
-          getChannel().newCall(METHOD_GET_DATA_ENCODINGS, getCallOptions()), request);
+          getChannel().newCall(getGetDataEncodingsMethodHelper(), getCallOptions()), request);
     }
   }
 
@@ -505,10 +630,38 @@ public final class OpenConfigTelemetryGrpc {
     }
   }
 
-  private static final class OpenConfigTelemetryDescriptorSupplier implements io.grpc.protobuf.ProtoFileDescriptorSupplier {
+  private static abstract class OpenConfigTelemetryBaseDescriptorSupplier
+      implements io.grpc.protobuf.ProtoFileDescriptorSupplier, io.grpc.protobuf.ProtoServiceDescriptorSupplier {
+    OpenConfigTelemetryBaseDescriptorSupplier() {}
+
     @java.lang.Override
     public com.google.protobuf.Descriptors.FileDescriptor getFileDescriptor() {
       return telemetry.Oc.getDescriptor();
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Descriptors.ServiceDescriptor getServiceDescriptor() {
+      return getFileDescriptor().findServiceByName("OpenConfigTelemetry");
+    }
+  }
+
+  private static final class OpenConfigTelemetryFileDescriptorSupplier
+      extends OpenConfigTelemetryBaseDescriptorSupplier {
+    OpenConfigTelemetryFileDescriptorSupplier() {}
+  }
+
+  private static final class OpenConfigTelemetryMethodDescriptorSupplier
+      extends OpenConfigTelemetryBaseDescriptorSupplier
+      implements io.grpc.protobuf.ProtoMethodDescriptorSupplier {
+    private final String methodName;
+
+    OpenConfigTelemetryMethodDescriptorSupplier(String methodName) {
+      this.methodName = methodName;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Descriptors.MethodDescriptor getMethodDescriptor() {
+      return getServiceDescriptor().findMethodByName(methodName);
     }
   }
 
@@ -521,12 +674,12 @@ public final class OpenConfigTelemetryGrpc {
         result = serviceDescriptor;
         if (result == null) {
           serviceDescriptor = result = io.grpc.ServiceDescriptor.newBuilder(SERVICE_NAME)
-              .setSchemaDescriptor(new OpenConfigTelemetryDescriptorSupplier())
-              .addMethod(METHOD_TELEMETRY_SUBSCRIBE)
-              .addMethod(METHOD_CANCEL_TELEMETRY_SUBSCRIPTION)
-              .addMethod(METHOD_GET_TELEMETRY_SUBSCRIPTIONS)
-              .addMethod(METHOD_GET_TELEMETRY_OPERATIONAL_STATE)
-              .addMethod(METHOD_GET_DATA_ENCODINGS)
+              .setSchemaDescriptor(new OpenConfigTelemetryFileDescriptorSupplier())
+              .addMethod(getTelemetrySubscribeMethodHelper())
+              .addMethod(getCancelTelemetrySubscriptionMethodHelper())
+              .addMethod(getGetTelemetrySubscriptionsMethodHelper())
+              .addMethod(getGetTelemetryOperationalStateMethodHelper())
+              .addMethod(getGetDataEncodingsMethodHelper())
               .build();
         }
       }

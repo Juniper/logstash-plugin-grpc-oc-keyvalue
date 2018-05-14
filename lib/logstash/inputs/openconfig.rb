@@ -30,9 +30,15 @@ class LogStash::Inputs::Openconfig < LogStash::Inputs::Base
   # If undefined, Logstash will complain, even if codec is unused.
   default :codec, "plain"
 
-  config :host , :validate=> :string
+  config :server , :validate=> :array
   config :port, :validate=> :number, :default=>32767
   config :sensors, :validate=> :array
+  config :username, :validate=> :string, :default=>""
+  config :password, :validate=> :string, :default=>""
+  config :clientID, :validate=> :string, :default=>""
+  config :certFile, :validate=> :string, :default=>""
+  config :sampleFrequency, :validate=> :number, :default=>1000
+
   public
   def register
     @server_name = Socket.gethostname
@@ -41,9 +47,14 @@ class LogStash::Inputs::Openconfig < LogStash::Inputs::Base
   def run(queue)
       #puts queue.class
       @queue = queue
+      puts @username
+      puts @password	
+      puts @clientID
+      puts @certFile
       obj=Java::MainThreadClass.new
       sensorsObj = java.util.ArrayList.new @sensors
-      obj.invoke(@host, sensorsObj, @port, @queue)
+      hostObj = java.util.ArrayList.new @server
+      obj.invoke(hostObj, sensorsObj, @port, @queue, @username, @password, @clientID, @certFile, @sampleFrequency)
 
       #obj.invoke(@host,sensorsObj,@port,@queue)
   end 
