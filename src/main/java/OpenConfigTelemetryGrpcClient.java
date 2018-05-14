@@ -48,8 +48,6 @@ class FindFile
             }
             else if (name.equalsIgnoreCase(fil.getName()))
             {
-                //System.out.println(fil.getParentFile());
-		//System.out.println(fil.getAbsolutePath());
 		return fil.getAbsolutePath();
             }
         }
@@ -87,79 +85,65 @@ public class OpenConfigTelemetryGrpcClient implements Runnable {
                 .build();
 
         Iterator<Oc.OpenConfigData> response ;
-	try{
-	    ScriptEngine jruby = new ScriptEngineManager().getEngineByName("jruby");
-	    //System.out.println("Hello there");
-	    //System.out.println(queue.getClass().getName());
- 	    //System.out.println(System.getenv());
-	    //System.out.println(System.getProperty("user.dir"));
-	    //URL url = getClass().getResource("/b/janishj/logstash/vendor/local_gems/940211cf/logstash-input-openconfig-0.1.0-java/lib/logstash/inputs/print.rb");
-	    //URL url = getClass().getResource("openconfig.rb");
-	    String name = "openconfig.rb";
-	    FindFile ff = new FindFile();
-	    String directory = System.getProperty("user.dir");
-	    String oc_path = ff.findFile(name,new File(directory));
-	    if(oc_path == ""){
-		System.out.println("Error!! File openconfig.rb not found in plugin package. Aborting!!");
- 	    }	    
-	    URL url = new File(oc_path).toURI().toURL();
-	    File f = new File(url.getPath());
-	    System.out.println(url);
-	    jruby.eval(new BufferedReader(new FileReader(f)));
-	    System.out.println("Url eval done");
-            response=stub.telemetrySubscribe(request);
-	    System.out.println(response);
-            //INFO:stream of data packets
-	    int sequence = 0;
-	    while(response.hasNext()){
-		//System.out.println("Inside While");
-                Oc.OpenConfigData data = response.next();
-
-                //INFO:all the information contained within each packet
-                ArrayList<Oc.KeyValue> kv=new ArrayList<>(data.getKvList());
-
-                LinkedHashMap<String,Object> record= new LinkedHashMap<>();
-                Object prefix="";
-                //1.send basic info to the logs
-                //INFO:get all the key value pairs into a hash "record"
-                for(int i=0;i<kv.size();i++) {
-		    //System.out.println("Inside for");
-                    int number = kv.get(i).getValueCase().getNumber();
-                    String key = kv.get(i).getKey();
-                    Object value = getDataListValue(number, kv, i);
-                    if (key.equals("__prefix__") && value.toString() != "")
-                        prefix = value;
-                    //else if (key.startsWith("__")){}
-		    record.put(prefix+key, value);
-                }
-		//System.out.println("Before transform_record");
-		//record.put("sensor_name", sensor);
-		//record.put("_sequence", sequence);
-		//sequence=sequence+1;
-		//System.out.println(record);
-                transform_record(record,device,sequence,sensor);
-                sequence = sequence + 1;
-		System.out.println("data sent to ruby $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
-		//System.out.println(tr_record);
-		
-                //try
-                //{
-		Iterator it = tr_record.entrySet().iterator();
-		while(it.hasNext()){
-			//System.out.println("Inside while loop it.hasNext()");
-			Map.Entry pair = (Map.Entry)it.next();
-                //	jruby.put("hash",tr_record);
-			jruby.put("hash", pair.getValue());
-			jruby.put("q", queue);
-                	jruby.eval("print_function($hash, $q)");
+	while(true){
+		try{
+		    ScriptEngine jruby = new ScriptEngineManager().getEngineByName("jruby");
+		    String name = "openconfig.rb";
+		    FindFile ff = new FindFile();
+		    String directory = System.getProperty("user.dir");
+		    String oc_path = ff.findFile(name,new File(directory));
+		    if(oc_path == ""){
+			System.out.println("Error!! File openconfig.rb not found in plugin package. Aborting!!");
+	 	    }	    
+		    URL url = new File(oc_path).toURI().toURL();
+		    File f = new File(url.getPath());
+		    jruby.eval(new BufferedReader(new FileReader(f)));
+	            response=stub.telemetrySubscribe(request);
+	            //INFO:stream of data packets
+		    int sequence = 0;
+		    while(response.hasNext()){
+	                Oc.OpenConfigData data = response.next();
+	
+	                //INFO:all the information contained within each packet
+	                ArrayList<Oc.KeyValue> kv=new ArrayList<>(data.getKvList());
+	
+	                LinkedHashMap<String,Object> record= new LinkedHashMap<>();
+	                Object prefix="";
+	                //1.send basic info to the logs
+	                //INFO:get all the key value pairs into a hash "record"
+	                for(int i=0;i<kv.size();i++) {
+			    //System.out.println("Inside for");
+	                    int number = kv.get(i).getValueCase().getNumber();
+	                    String key = kv.get(i).getKey();
+	                    Object value = getDataListValue(number, kv, i);
+	                    if (key.equals("__prefix__") && value.toString() != "")
+	                        prefix = value;
+			    record.put(prefix+key, value);
+	                }
+	                transform_record(record,device,sequence,sensor);
+	                sequence = sequence + 1;
+			Iterator it = tr_record.entrySet().iterator();
+			while(it.hasNext()){
+				Map.Entry pair = (Map.Entry)it.next();
+				jruby.put("hash", pair.getValue());
+				jruby.put("q", queue);
+	                	jruby.eval("print_function($hash, $q)");
+			}
+	
+	            }
+		    break;
+		 }catch(Exception e ){
+			System.out.println("Exception raised in OpenConfig: ");
+			System.out.println(e);
+			System.out.println("Will retry in 10 seconds ...");
+			try{
+				Thread.sleep(10000);
+			}catch(Exception ex){
+				System.out.println("Exception raised: " + ex);
+				System.out.println("Aborting!!");
+			}
+			continue;
 		}
-
-                //}catch (FileNotFoundException | ScriptException e){}
-            }
-       // }catch(MalformedURLException | StatusRuntimeException | FileNotFoundException | ScriptException e ){
-	 }catch(Exception e ){
-		System.out.println("Exception raised in OPenCOnfig: ");
-		System.out.println(e);
 	}
     }
     synchronized void transform_record(LinkedHashMap<String, Object> record,String device, int sequence, String sensor)
@@ -212,7 +196,6 @@ public class OpenConfigTelemetryGrpcClient implements Runnable {
 	    String plugin_record_tags_str = String.join(",", plugin_record_tags);
 	    h.put("plugin_record_tags", plugin_record_tags_str);
             tr_record.put(sp_key,h);
-	//System.out.println(sp_key+"=>"+tr_record.get(sp_key));
         }
     }
     public static Object getDataListValue(int number,ArrayList<Oc.KeyValue> data_list,int index)

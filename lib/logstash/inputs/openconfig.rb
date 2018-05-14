@@ -45,7 +45,6 @@ class LogStash::Inputs::Openconfig < LogStash::Inputs::Base
   end # def register
 
   def run(queue)
-      #puts queue.class
       @queue = queue
       puts @username
       puts @password	
@@ -66,15 +65,7 @@ class LogStash::Inputs::Openconfig < LogStash::Inputs::Base
       hash["local_time"] = DateTime.now.strftime('%Q')
       hash["time"] = DateTime.now.strftime('%Q')
       event = LogStash::Event.new(hash)
-      #puts hash.class
-      #hash.each do |key, value|
-#	puts "==========================+"
-#	puts key
-#	puts value
-#      end
       decorate(event)
-      #event.get("message")
-      #puts queue.class
       queue << event
   end
 
