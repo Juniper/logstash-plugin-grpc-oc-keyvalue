@@ -36,7 +36,7 @@ bundle exec rspec
 
 - Compile the java code and create the gem
 ```sh
-rake compile
+rake package
 ```
 - Build your plugin gem
 ```sh
