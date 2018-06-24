@@ -123,8 +123,9 @@ public class host_threads implements Runnable {
 				    measurementName = sensor_split[0];
 				    if (sensor_split.length > 1)  {
 					measurementName = "";
-					if (Integer.toString(Integer.parseInt(sensor_split[0])) == sensor_split[0] ){
-						frequency = Integer.parseInt(sensor_split[0]); 
+
+                                        if (Integer.toString(Integer.parseInt(sensor_split[0])).equals(sensor_split[0])) {
+						frequency = Integer.parseInt(sensor_split[0]);
 						if (!sensor_split[1].startsWith("/")){
 							measurementName = sensor_split[1];
 							new_sensor_split = Arrays.copyOfRange(sensor_split, 2, sensor_split.length);
@@ -149,13 +150,13 @@ public class host_threads implements Runnable {
 				    for (int j=0; j< new_sensor_split.length; j++){
 					String sensor_name = new_sensor_split[j];
 					if (measurementName == ""){
-		                   		 Runnable r = new OpenConfigTelemetryGrpcClient(sensor_name, tr_record, channel, stub, serverName, queue, sensor_name);
+		                   		 Runnable r = new OpenConfigTelemetryGrpcClient(sensor_name, tr_record, channel, stub, serverName, queue, sensor_name, frequency);
 		                   		 threads.add(new Thread(r));
 		                   		 (threads.get(threadCount)).start();
 						 threadCount=threadCount+1;
 					}
 					else {
-				  		 Runnable r = new OpenConfigTelemetryGrpcClient(sensor_name, tr_record, channel, stub, serverName, queue, measurementName);
+                                                 Runnable r = new OpenConfigTelemetryGrpcClient(sensor_name, tr_record, channel, stub, serverName, queue, measurementName, frequency);
 						 threads.add(new Thread(r));
 		                   		 (threads.get(threadCount)).start();
 						 threadCount=threadCount+1;
