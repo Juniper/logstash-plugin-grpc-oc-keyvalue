@@ -30,6 +30,7 @@ import java.util.regex.Pattern;
 import java.net.MalformedURLException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.concurrent.TimeUnit;
 
 class FindFile 
 {
@@ -62,9 +63,10 @@ public class OpenConfigTelemetryGrpcClient implements Runnable {
     String device;
     private final LinkedHashMap<String,LinkedHashMap<String,Object>> tr_record;//shared object
     String sensor;
+    int frequency;
     Object queue;
     OpenConfigTelemetryGrpc.OpenConfigTelemetryBlockingStub stub;
-    public OpenConfigTelemetryGrpcClient(String sensor,LinkedHashMap<String,LinkedHashMap<String,Object>> tr_record,ManagedChannel channel,OpenConfigTelemetryGrpc.OpenConfigTelemetryBlockingStub stub,String device, Object queue, String measurement_name)
+    public OpenConfigTelemetryGrpcClient(String sensor,LinkedHashMap<String,LinkedHashMap<String,Object>> tr_record,ManagedChannel channel,OpenConfigTelemetryGrpc.OpenConfigTelemetryBlockingStub stub,String device, Object queue, String measurement_name, int frequency)
     {
         this.channel=channel;
         this.tr_record=tr_record;
@@ -72,12 +74,13 @@ public class OpenConfigTelemetryGrpcClient implements Runnable {
         this.stub = stub;
         this.device = device;
 	this.queue = queue;
+        this.frequency = frequency;
     }
     public void run() 
     {
         Oc.Path path = Oc.Path.newBuilder().setPath(sensor)
                 .setSuppressUnchanged(true)
-                .setSampleFrequency(1000)
+                .setSampleFrequency(frequency)
                 .build();
 
         Oc.SubscriptionRequest request=Oc.SubscriptionRequest.newBuilder()
