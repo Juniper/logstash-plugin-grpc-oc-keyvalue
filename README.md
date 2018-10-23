@@ -40,11 +40,11 @@ rake package
 ```
 - Build your plugin gem
 ```sh
-gem build logstash-filter-awesome.gemspec
+gem build logstash-input-openconfig.gemspec
 ```
 - Install the plugin from the Logstash home
 ```sh
-bin/logstash-plugin install /your/local/plugin/logstash-filter-awesome.gem
+bin/logstash-plugin install /your/local/plugin/logstash-input-openconfig-0.1.0-java.gem
 ```
 - Running the plugin using a config file from the Logstash home
 ```sh
